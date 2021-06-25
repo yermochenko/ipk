@@ -14,7 +14,7 @@ public class Main {
 	}
 
 	public static ProductReader getReader() {
-		return new ProductTestReader();
+		return new ProductFileReader();
 	}
 
 	public static void main(String[] args) {
