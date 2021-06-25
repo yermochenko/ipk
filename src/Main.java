@@ -13,8 +13,13 @@ public class Main {
 		}
 	}
 
+	public static ProductReader getReader() {
+		return new ProductTestReader();
+	}
+
 	public static void main(String[] args) {
-		ArrayList<Product> products = ProductReader.read();
+		ProductReader reader = getReader();
+		ArrayList<Product> products = reader.read();
 		out(products);
 		ProductSorter.sort(products, new ProductByNameComparator());
 		out(products);
