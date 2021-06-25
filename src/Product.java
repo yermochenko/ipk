@@ -2,7 +2,6 @@ public class Product {
 	private String name;
 	private Long price;
 	public String getName() {
-		// new comment
 		return name;
 	}
 	public void setName(String name) {
