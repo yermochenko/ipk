@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
 
-public class ProductFileReader extends ProductReader {
+public class ProductFileReader implements ProductReader {
 	@Override
 	public ArrayList<Product> read() {
 		ArrayList<Product> products = new ArrayList<>();

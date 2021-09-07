@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class ProductTestReader extends ProductReader {
+public class ProductTestReader implements ProductReader {
 	public ArrayList<Product> read() {
 		ArrayList<Product> products = new ArrayList<>();
 		Product product;

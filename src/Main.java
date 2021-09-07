@@ -21,9 +21,28 @@ public class Main {
 		ProductReader reader = getReader();
 		ArrayList<Product> products = reader.read();
 		out(products);
-		ProductSorter.sort(products, new ProductByNameComparator());
+		Sorter.sort(products, new ProductByNameComparator());
 		out(products);
-		ProductSorter.sort(products, new ProductByPriceComparator());
+		Sorter.sort(products, new ProductByPriceComparator());
+//		ProductSorter.sort(products, (a, b) -> Long.compare(a.getPrice(), b.getPrice()));
+		out(products);
+		Sorter.sort(products, new Comparator<Product>() {
+			@Override
+			public int compare(Product a, Product b) {
+				int result = a.getName().compareToIgnoreCase(b.getName());
+				if(result == 0) {
+					result = Long.compare(a.getPrice(), b.getPrice());
+				}
+				return result;
+			}
+		});
+//		ProductSorter.sort(products, (a, b) -> {
+//			int result = a.getName().compareToIgnoreCase(b.getName());
+//			if(result == 0) {
+//				result = Long.compare(a.getPrice(), b.getPrice());
+//			}
+//			return result;
+//		});
 		out(products);
 	}
 
