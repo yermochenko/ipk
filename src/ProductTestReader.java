@@ -1,8 +1,9 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProductTestReader implements ProductReader {
-	public ArrayList<Product> read() {
-		ArrayList<Product> products = new ArrayList<>();
+	public List<Product> read() {
+		List<Product> products = new ArrayList<>();
 		Product product;
 		product = new Product();
 		product.setName("Картофель");

@@ -1,7 +1,8 @@
-import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 public class Sorter {
-	public static <T> void sort(ArrayList<T> arr, Comparator<T> comparator) {
+	public static <T> void sort(List<T> arr, Comparator<T> comparator) {
 		for(int i = 0; i < arr.size() - 1; i++) {
 			int imin = i;
 			for(int j = i + 1; j < arr.size(); j++) {

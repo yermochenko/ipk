@@ -5,11 +5,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProductFileReader implements ProductReader {
 	@Override
-	public ArrayList<Product> read() {
-		ArrayList<Product> products = new ArrayList<>();
+	public List<Product> read() {
+		List<Product> products = new ArrayList<>();
 		BufferedReader bufferedReader = null;
 		try {
 			InputStream inputStream = new FileInputStream("products.csv");

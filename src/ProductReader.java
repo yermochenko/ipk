@@ -1,5 +1,5 @@
-import java.util.ArrayList;
+import java.util.List;
 
 public interface ProductReader {
-	ArrayList<Product> read();
+	List<Product> read();
 }
