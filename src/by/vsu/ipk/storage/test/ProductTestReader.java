@@ -1,5 +1,9 @@
+package by.vsu.ipk.storage.test;
 import java.util.ArrayList;
 import java.util.List;
+
+import by.vsu.ipk.domain.Product;
+import by.vsu.ipk.storage.ProductReader;
 
 public class ProductTestReader implements ProductReader {
 	public List<Product> read() {

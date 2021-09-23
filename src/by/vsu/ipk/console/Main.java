@@ -1,6 +1,13 @@
+package by.vsu.ipk.console;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
+import by.vsu.ipk.domain.Product;
+import by.vsu.ipk.logic.ProductByNameComparator;
+import by.vsu.ipk.logic.ProductByPriceComparator;
+import by.vsu.ipk.storage.ProductReader;
+import by.vsu.ipk.storage.file.ProductFileReader;
 
 public class Main {
 	public static void out(List<Product> products) {

@@ -1,3 +1,4 @@
+package by.vsu.ipk.domain;
 public class Product {
 	private String name;
 	private Long price;

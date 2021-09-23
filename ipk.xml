@@ -1,0 +1,3 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- copy this file into tomcat\conf\Catalina\localhost -->
+<Context path="/ipk" docBase="D:/eclipse-workspaces/git/ipk/web" disableURLRewriting="true"/>

@@ -1,3 +1,4 @@
+package by.vsu.ipk.logic;
 import java.util.Comparator;
 import java.util.List;
 

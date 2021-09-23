@@ -1,3 +1,4 @@
+package by.vsu.ipk.storage.file;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -7,13 +8,16 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 
+import by.vsu.ipk.domain.Product;
+import by.vsu.ipk.storage.ProductReader;
+
 public class ProductFileReader implements ProductReader {
 	@Override
 	public List<Product> read() {
 		List<Product> products = new ArrayList<>();
 		BufferedReader bufferedReader = null;
 		try {
-			InputStream inputStream = new FileInputStream("products.csv");
+			InputStream inputStream = new FileInputStream("D:\\eclipse-workspaces\\git\\ipk\\products.csv");
 			Reader reader = new InputStreamReader(inputStream, "cp1251");
 			bufferedReader = new BufferedReader(reader);
 			String line;
