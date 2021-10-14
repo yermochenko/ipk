@@ -1,11 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.util.List"%>
-<%@ page import="by.vsu.ipk.domain.Product"%>
-<%
-	@SuppressWarnings("unchecked")
-	List<Product> products = (List<Product>) request.getAttribute("products");
-	int size = products.size();
-%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,17 +27,13 @@
 			<th>Название</th>
 			<th>Цена</th>
 		</tr>
-		<%
-		for(Product product : products) {
-		%>
+		<c:forEach var="product" items="${products}">
 		<tr>
-			<td><%= product.getName() %></td>
-			<td><%= product.getPrice() / 100 %> руб. <%= product.getPrice() % 100 %> коп.</td>
+			<td>${product.name}</td>
+			<td><fmt:formatNumber maxFractionDigits="0" value="${product.price div 100}"/>&nbsp;руб. <fmt:formatNumber minIntegerDigits="2" value="${product.price mod 100}"/>&nbsp;коп.</td>
 		</tr>
-		<%
-		}
-		%>
+		</c:forEach>
 	</table>
-	<p>Итого продуктов: <%= size %></p>
+	<p>Итого продуктов: ${fn:length(products)}</p>
 </body>
 </html>
