@@ -26,14 +26,23 @@
 		<tr>
 			<th>Название</th>
 			<th>Цена</th>
+			<th></th>
 		</tr>
 		<c:forEach var="product" items="${products}">
 		<tr>
 			<td>${product.name}</td>
 			<td><fmt:formatNumber maxFractionDigits="0" value="${product.price div 100}"/>&nbsp;руб. <fmt:formatNumber minIntegerDigits="2" value="${product.price mod 100}"/>&nbsp;коп.</td>
+			<td>
+				<c:url var="editUrl" value="/product/edit.html">
+					<c:param name="id" value="${product.id}"/>
+				</c:url>
+				<a href="${editUrl}">Редактировать</a>
+			</td>
 		</tr>
 		</c:forEach>
 	</table>
 	<p>Итого продуктов: ${fn:length(products)}</p>
+	<c:url var="editUrl" value="/product/edit.html"/>
+	<p><a href="${editUrl}">Добавить</a></p>
 </body>
 </html>

@@ -9,17 +9,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import by.vsu.ipk.domain.Product;
-import by.vsu.ipk.storage.ProductReader;
-import by.vsu.ipk.storage.file.ProductFileReader;
+import by.vsu.ipk.storage.ProductDao;
+import by.vsu.ipk.storage.ProductDaoFactory;
 
 public class ProductListServlet extends HttpServlet {
-	private static ProductReader getReader() {
-		return new ProductFileReader();
-	}
-
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		List<Product> products = getReader().read();
+		ProductDao productDao = ProductDaoFactory.getInstance();
+		List<Product> products = productDao.read();
 		req.setAttribute("products", products);
 		req.getRequestDispatcher("/WEB-INF/jsp/product/list.jsp").forward(req, resp);
 	}
