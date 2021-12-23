@@ -6,9 +6,7 @@ const clearNode = function(node) {
 	}
 };
 
-const contentLoaded = function(event) {
-	console.log(event.target.status);
-	let products = JSON.parse(event.target.response);
+const generateProductsTable = function(products) {
 	let h1 = document.createElement('h1');
 	h1.appendChild(document.createTextNode('Продукты'));
 	content.appendChild(h1);
@@ -32,14 +30,16 @@ const contentLoaded = function(event) {
 		table.appendChild(tableRow);
 	});
 	content.appendChild(table);
+	let p = document.createElement('p');
+	p.appendChild(document.createTextNode(`Итого продуктов: ${products.length}`));
+	content.appendChild(p);
 };
 
-window.onload = function() {
+window.onload = async function() {
 	content = document.getElementById('content');
 	clearNode(content);
-	let myRequest = new XMLHttpRequest();
-	//myRequest.open('GET', 'http://localhost/ipk/product');
-	myRequest.open('GET', 'product');
-	myRequest.onload = contentLoaded;
-	myRequest.send();
+	//let response = await fetch('http://localhost/ipk/product');
+	let response = await fetch('product');
+	let products = await response.json();
+	generateProductsTable(products);
 };
