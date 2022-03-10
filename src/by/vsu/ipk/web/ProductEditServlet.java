@@ -16,8 +16,8 @@ public class ProductEditServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String id = req.getParameter("id");
 		if(id != null) {
-			ProductDao productDao = ProductDaoFactory.getInstance();
-			try {
+			try(ProductDaoFactory factory = new ProductDaoFactory()) {
+				ProductDao productDao = factory.getInstance();
 				Product product = productDao.read(Long.valueOf(id));
 				if(product != null) {
 					req.setAttribute("product", product);

@@ -13,8 +13,8 @@ import by.vsu.ipk.storage.ProductDaoFactory;
 public class ProductDeleteServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		try {
-			ProductDao productDao = ProductDaoFactory.getInstance();
+		try(ProductDaoFactory factory = new ProductDaoFactory()) {
+			ProductDao productDao = factory.getInstance();
 			productDao.delete(Long.valueOf(req.getParameter("id")));
 			resp.sendRedirect(req.getContextPath() + "/product/list.html");
 		} catch(IllegalArgumentException e) {

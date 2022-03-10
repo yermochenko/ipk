@@ -15,18 +15,20 @@ import by.vsu.ipk.storage.ProductDaoFactory;
 public class Test {
 
 	public static void main(String[] args) throws StreamWriteException, DatabindException, IOException {
-		ProductDao productDao = ProductDaoFactory.getInstance();
-		List<Product> products = productDao.read();
-		for(Product product : products) {
-			System.out.println("**********");
-			System.out.println("id    = " + product.getId());
-			System.out.println("name  = " + product.getName());
-			System.out.println("price = " + product.getPrice());
+		try(ProductDaoFactory factory = new ProductDaoFactory()) {
+			ProductDao productDao = factory.getInstance();
+			List<Product> products = productDao.read();
+			for(Product product : products) {
+				System.out.println("**********");
+				System.out.println("id    = " + product.getId());
+				System.out.println("name  = " + product.getName());
+				System.out.println("price = " + product.getPrice());
+			}
+			System.out.println("==================");
+			ObjectMapper mapper = new ObjectMapper();
+			mapper.enable(SerializationFeature.INDENT_OUTPUT);
+			mapper.writeValue(System.out, products);
 		}
-		System.out.println("==================");
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.enable(SerializationFeature.INDENT_OUTPUT);
-		mapper.writeValue(System.out, products);
 	}
 
 }

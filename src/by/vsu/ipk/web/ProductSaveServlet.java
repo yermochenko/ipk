@@ -18,7 +18,7 @@ public class ProductSaveServlet extends HttpServlet {
 		String name = req.getParameter("name");
 		String priceRub = req.getParameter("price-rub");
 		String priceKop = req.getParameter("price-kop");
-		try {
+		try(ProductDaoFactory factory = new ProductDaoFactory()) {
 			Product product = new Product();
 			if(id != null) {
 				product.setId(Long.valueOf(id));
@@ -28,7 +28,7 @@ public class ProductSaveServlet extends HttpServlet {
 			}
 			product.setName(name);
 			product.setPrice(Long.parseLong(priceRub) * 100 + Long.parseLong(priceKop));
-			ProductDao productDao = ProductDaoFactory.getInstance();
+			ProductDao productDao = factory.getInstance();
 			if(id != null) {
 				productDao.update(product);
 			} else {

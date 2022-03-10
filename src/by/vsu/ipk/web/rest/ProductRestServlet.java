@@ -17,53 +17,59 @@ import by.vsu.ipk.storage.ProductDaoFactory;
 public class ProductRestServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		ProductDao productDao = ProductDaoFactory.getInstance();
-		ObjectMapper mapper = new ObjectMapper();
-		String id = req.getParameter("id");
-		if(id == null) {
-			List<Product> products = productDao.read();
-			resp.setStatus(200);
-			resp.setContentType("application/json");
-			resp.setCharacterEncoding("UTF-8");
-			mapper.writeValue(resp.getOutputStream(), products);
-		} else {
-			try {
-				Product product = productDao.read(Long.valueOf(id));
-				if(product != null) {
-					resp.setStatus(200);
-					resp.setContentType("application/json");
-					resp.setCharacterEncoding("UTF-8");
-					mapper.writeValue(resp.getOutputStream(), product);
-				} else {
-					throw new IllegalArgumentException();
+		try(ProductDaoFactory factory = new ProductDaoFactory()) {
+			ProductDao productDao = factory.getInstance();
+			ObjectMapper mapper = new ObjectMapper();
+			String id = req.getParameter("id");
+			if(id == null) {
+				List<Product> products = productDao.read();
+				resp.setStatus(200);
+				resp.setContentType("application/json");
+				resp.setCharacterEncoding("UTF-8");
+				mapper.writeValue(resp.getOutputStream(), products);
+			} else {
+				try {
+					Product product = productDao.read(Long.valueOf(id));
+					if(product != null) {
+						resp.setStatus(200);
+						resp.setContentType("application/json");
+						resp.setCharacterEncoding("UTF-8");
+						mapper.writeValue(resp.getOutputStream(), product);
+					} else {
+						throw new IllegalArgumentException();
+					}
+				} catch(IllegalArgumentException e) {
+					resp.sendError(404);
 				}
-			} catch(IllegalArgumentException e) {
-				resp.sendError(404);
 			}
 		}
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		ObjectMapper mapper = new ObjectMapper();
-		Product product = mapper.readValue(req.getInputStream(), Product.class);
-		ProductDao productDao = ProductDaoFactory.getInstance();
-		Long id = productDao.create(product);
-		product.setId(id);
-		resp.setStatus(201);
-		resp.setContentType("application/json");
-		resp.setCharacterEncoding("UTF-8");
-		mapper.writeValue(resp.getOutputStream(), product);
+		try(ProductDaoFactory factory = new ProductDaoFactory()) {
+			ObjectMapper mapper = new ObjectMapper();
+			Product product = mapper.readValue(req.getInputStream(), Product.class);
+			ProductDao productDao = factory.getInstance();
+			Long id = productDao.create(product);
+			product.setId(id);
+			resp.setStatus(201);
+			resp.setContentType("application/json");
+			resp.setCharacterEncoding("UTF-8");
+			mapper.writeValue(resp.getOutputStream(), product);
+		}
 	}
 
 
 	@Override
 	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		ObjectMapper mapper = new ObjectMapper();
-		Product product = mapper.readValue(req.getInputStream(), Product.class);
-		ProductDao productDao = ProductDaoFactory.getInstance();
-		productDao.update(product);
-		resp.setStatus(204);
+		try(ProductDaoFactory factory = new ProductDaoFactory()) {
+			ObjectMapper mapper = new ObjectMapper();
+			Product product = mapper.readValue(req.getInputStream(), Product.class);
+			ProductDao productDao = factory.getInstance();
+			productDao.update(product);
+			resp.setStatus(204);
+		}
 	}
 
 	@Override
@@ -73,8 +79,10 @@ public class ProductRestServlet extends HttpServlet {
 			id = Long.valueOf(req.getParameter("id"));
 		} catch(NumberFormatException e) {}
 		if(id != null) {
-			ProductDao productDao = ProductDaoFactory.getInstance();
-			productDao.delete(id);
+			try(ProductDaoFactory factory = new ProductDaoFactory()) {
+				ProductDao productDao = factory.getInstance();
+				productDao.delete(id);
+			}
 		}
 		resp.setStatus(204);
 	}

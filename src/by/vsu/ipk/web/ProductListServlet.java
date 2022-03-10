@@ -15,9 +15,11 @@ import by.vsu.ipk.storage.ProductDaoFactory;
 public class ProductListServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		ProductDao productDao = ProductDaoFactory.getInstance();
-		List<Product> products = productDao.read();
-		req.setAttribute("products", products);
-		req.getRequestDispatcher("/WEB-INF/jsp/product/list.jsp").forward(req, resp);
+		try(ProductDaoFactory factory = new ProductDaoFactory()) {
+			ProductDao productDao = factory.getInstance();
+			List<Product> products = productDao.read();
+			req.setAttribute("products", products);
+			req.getRequestDispatcher("/WEB-INF/jsp/product/list.jsp").forward(req, resp);
+		}
 	}
 }
